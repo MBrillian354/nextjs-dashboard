@@ -39,6 +39,9 @@ export async function fetchLatestInvoices() {
       ORDER BY invoices.date DESC
       LIMIT 5`;
 
+        console.log("Fetching latest invoices...");
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
         const latestInvoices = data.map((invoice) => ({
             ...invoice,
             amount: formatCurrency(invoice.amount),
@@ -61,6 +64,9 @@ export async function fetchCardData() {
          SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
          FROM invoices`;
+
+        console.log("Fetching card data...");
+        await new Promise((resolve) => setTimeout(resolve, 1500));
 
         const data = await Promise.all([
             invoiceCountPromise,
